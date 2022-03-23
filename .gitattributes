@@ -1,0 +1,6 @@
+dist/** -diff linguist-generated=true
+
+# Auto detect text files and perform LF normalization
+* text=auto
+*.ts text eol=lf
+*.js text eol=lf
