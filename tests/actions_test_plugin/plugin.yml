@@ -1,0 +1,7 @@
+---
+name: actions_test
+version: 0.0.1
+main: NxtLvLSoftware\actions_test\Main
+api: 4.2.1
+src-namespace-prefix: NxtLvLSoftware\actions_test
+...
