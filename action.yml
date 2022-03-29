@@ -73,12 +73,12 @@ runs:
         php-version: ${{ inputs.php-version }}
         install-path: "./bin"
     - name: Install and prepare PHPStan
-      uses: nxtlvlsoftware/setup-phpstan@v1
+      uses: ../setup-phpstan
       with:
         version: ${{ inputs.phpstan-version }}
         install-path: "./bin"
     - name: Run PHPStan analysis
-      uses: nxtlvlsoftware/run-phpstan@v1
+      uses: ../run-phpstan
       with:
         executable: "./bin/phpstan.phar"
         php: "./bin/php"
