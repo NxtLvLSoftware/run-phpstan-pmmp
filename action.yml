@@ -73,9 +73,9 @@ runs:
         php-version: ${{ inputs.php-version }}
         install-path: "./bin"
     - name: Install and prepare PHPStan
-      uses: ./setup-phpstan
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      uses: ./setup-phpstan
       with:
         version: ${{ inputs.phpstan-version }}
         install-path: "./bin"
