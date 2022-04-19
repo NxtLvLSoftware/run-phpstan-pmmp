@@ -79,6 +79,8 @@ runs:
       with:
         version: ${{ inputs.phpstan-version }}
         install-path: "./bin"
+    - name: Display structure of downloaded files
+      run: ls -R
     - name: Run PHPStan analysis
       uses: ./run-phpstan
       with:
