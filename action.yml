@@ -8,7 +8,7 @@ inputs:
     description: |
       Specifies the version of phpstan to use.
     required: true
-    default: 1.4.10
+    default: latest
   analyse:
     description: |
       A space seperated list of paths to analyse.
