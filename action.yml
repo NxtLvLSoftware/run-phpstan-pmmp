@@ -73,7 +73,7 @@ runs:
         php-version: ${{ inputs.php-version }}
         install-path: "./bin"
     - name: Install and prepare PHPStan
-      uses: ../setup-phpstan
+      uses: ./../setup-phpstan
       with:
         version: ${{ inputs.phpstan-version }}
         install-path: "./bin"
