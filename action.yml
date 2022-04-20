@@ -78,15 +78,15 @@ runs:
       uses: ./setup-phpstan
       with:
         version: ${{ inputs.phpstan-version }}
-        install-path: "./bin"
+        install-path: "./phpstan/bin"
     - name: Display structure of downloaded files
       shell: bash
       run: ls -R
     - name: Run PHPStan analysis
       uses: ./run-phpstan
       with:
-        executable: "./bin/phpstan.phar"
-        php: "./bin/php"
+        executable: "./bin/phpstan/phpstan.phar"
+        php: "./bin/bin/php"
         analyse: ${{ inputs.analyse }}
         level: ${{ inputs.level }}
         config: ${{ inputs.config }}
