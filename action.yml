@@ -78,7 +78,7 @@ runs:
       uses: ./setup-phpstan
       with:
         version: ${{ inputs.phpstan-version }}
-        install-path: "./phpstan/bin"
+        install-path: "./bin/phpstan"
     - name: Display structure of downloaded files
       shell: bash
       run: ls -R
