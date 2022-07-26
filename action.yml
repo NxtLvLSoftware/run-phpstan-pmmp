@@ -18,6 +18,7 @@ inputs:
     description: |
       Specifies the directory to install pmmp sources to.
     required: false
+    default: "./pocketmine"
   analyse:
     description: |
       A space seperated list of paths to analyse.
