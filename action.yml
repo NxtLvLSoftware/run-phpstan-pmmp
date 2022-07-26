@@ -94,9 +94,6 @@ runs:
       with:
         pmmp-version: ${{ inputs.pmmp-version }}
         install-path: ${{ inputs.pmmp-source-dir }}
-    - name: Display structure of downloaded files
-      shell: bash
-      run: ls -R
     - name: Run PHPStan analysis
       uses: ./run-phpstan
       with:
