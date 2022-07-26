@@ -96,7 +96,7 @@ runs:
         install-path: ${{ inputs.pmmp-source-dir }}
     - name: Display structure of downloaded files
       shell: bash
-      run: cd pocketmine && ls -R && cat pocketmine/phpstan/rules/DisallowEnumComparisonRule.php
+      run: cd pocketmine && ls -R && cat ./phpstan/rules/DisallowEnumComparisonRule.php
     - name: Run PHPStan analysis
       uses: ./run-phpstan
       with:
