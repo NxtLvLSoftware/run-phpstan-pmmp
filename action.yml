@@ -2,13 +2,22 @@ inputs:
   php-version:
     description: |
       Specifies the version of php to use.
-    required: true
+    required: false
     default: 8.0.16
   phpstan-version:
     description: |
       Specifies the version of phpstan to use.
-    required: true
+    required: false
     default: latest
+  pmmp-version:
+    description: |
+      Specifies the version of pmmp source to analyse against.
+    required: false
+    default: latest
+  pmmp-source-dir:
+    description: |
+      Specifies the directory to install pmmp sources to.
+    required: false
   analyse:
     description: |
       A space seperated list of paths to analyse.
@@ -29,17 +38,17 @@ inputs:
   memory-limit:
     description: |
       Specifies the memory limit in the same format php.ini accepts.
-    required: true
+    required: false
     default: 1G
   debug:
     description: |
       Instead of the progress bar, it outputs lines with each analysed file before its analysis.
-    required: true
+    required: false
     default: "false"
   quiet:
     description: |
       Silences all the output. Useful if you’re interested only in the exit code.O
-    required: true
+    required: false
     default: "false"
   autoload-file:
     description: |
@@ -54,12 +63,12 @@ inputs:
     default: github
   ansi:
     description: |
-      Overrides the autodetection of whether colors should be used in the output and how nice the progress bar should be.
-    required: true
+      Overrides the auto-detection of whether colors should be used in the output and how nice the progress bar should be.
+    required: false
     default: "true"
 
 name: Setup PHPStan
-description: GitHub action for setting up PHPStan in an actions enviroment.
+description: GitHub action for setting up PHPStan in an actions environment.
 author: NxtLvLSoftware Solutions
 branding:
   icon: settings
@@ -79,6 +88,11 @@ runs:
       with:
         version: ${{ inputs.phpstan-version }}
         install-path: "./bin/phpstan"
+    - name: Setup PMMP Sources
+      uses: ./setup-pmmp-phpstan-env
+      with:
+        pmmp-version: ${{ inputs.pmmp-version }}
+        install-path: ${{ inputs.pmmp-source-dir }}
     - name: Display structure of downloaded files
       shell: bash
       run: ls -R
