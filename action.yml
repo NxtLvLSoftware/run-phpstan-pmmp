@@ -35,7 +35,7 @@ inputs:
     description: |
       Path to PHPStan configuration file. Relative paths are resolved based on the current working directory.
     required: false
-    default: ""
+    default: "./pocketmine/phpstan/phpstan.neon"
   memory-limit:
     description: |
       Specifies the memory limit in the same format php.ini accepts.
