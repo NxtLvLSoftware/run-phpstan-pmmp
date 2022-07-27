@@ -56,7 +56,7 @@ inputs:
       If your application uses a custom autoloader, you should set it up and register in a PHP file that is
       passed to this CLI option. Relative paths are resolved based on the current working directory.
     required: false
-    default: ""
+    default: "./pocketmine/phpstan/vendor/autoload.php"
   error-format:
     description: |
       Specifies a custom error formatter. https://phpstan.org/user-guide/output-format
