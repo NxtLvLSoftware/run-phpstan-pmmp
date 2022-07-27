@@ -104,7 +104,8 @@ runs:
         path: ./pocketmine/phpstan/rules/DisallowEnumComparisonRule.php
     - name: Output file [DEBUG]
       shell: bash
-      run: echo "${{ steps.vars.outputs.content.toString() }}"
+      run: |
+        echo "${{ steps.vars.outputs.content }}"
     - name: Run PHPStan analysis
       uses: ./run-phpstan
       with:
