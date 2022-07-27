@@ -98,10 +98,11 @@ runs:
       shell: bash
       run: cd pocketmine && ls -R && cat ./phpstan/rules/DisallowEnumComparisonRule.php
     - id: vars
-      shell: bash
-      run: echo ::set-output name=file::$(cat pocketmine/phpstan/rules/DisallowEnumComparisonRule.php)
+      uses: juliangruber/read-file-action@v1
+      with:
+        path: pocketmine/phpstan/rules/DisallowEnumComparisonRule.php
     - shell: bash
-      run: echo ${{ steps.vars.outputs.file }}
+      run: echo ${{ steps.vars.outputs.content }}
     - name: Run PHPStan analysis
       uses: ./run-phpstan
       with:
