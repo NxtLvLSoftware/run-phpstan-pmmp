@@ -11,12 +11,12 @@ inputs:
     default: latest
   pmmp-version:
     description: |
-      Specifies the version of pmmp source to analyse against.
+      Specifies the version of pocketmine source to analyse against.
     required: false
     default: latest
   pmmp-source-dir:
     description: |
-      Specifies the directory to install pmmp sources to.
+      Specifies the directory to install pocketmine sources to.
     required: false
     default: "./pocketmine"
   analyse:
@@ -33,7 +33,7 @@ inputs:
     default: 9
   config:
     description: |
-      Path to PHPStan configuration file. Relative paths are resolved based on the current working directory.
+      Path to phpstan configuration file. Relative paths are resolved based on the current working directory.
     required: false
     default: "./pocketmine/phpstan/phpstan.neon.dist"
   memory-limit:
@@ -48,7 +48,7 @@ inputs:
     default: "false"
   quiet:
     description: |
-      Silences all the output. Useful if you’re interested only in the exit code.O
+      Silences all the output. Useful if you’re interested only in the exit code.
     required: false
     default: "false"
   autoload-file:
@@ -69,7 +69,7 @@ inputs:
     default: "true"
 
 name: Setup PHPStan
-description: GitHub action for setting up PHPStan in an actions environment.
+description: GitHub action for setting up phpstan in an actions environment.
 author: NxtLvLSoftware Solutions
 branding:
   icon: settings
@@ -82,22 +82,19 @@ runs:
       with:
         php-version: ${{ inputs.php-version }}
         install-path: "./bin"
-    - name: Install and prepare PHPStan
+    - name: Install PHPStan
       env:
         GITHUB_TOKEN: ${{ env.GITHUB_TOKEN }}
       uses: ./setup-phpstan
       with:
         version: ${{ inputs.phpstan-version }}
         install-path: "./bin/phpstan"
-    - name: Setup PMMP Sources
+    - name: Setup PocketMine Sources
       uses: ./setup-pmmp-phpstan-env
       with:
         pmmp-version: ${{ inputs.pmmp-version }}
         install-path: ${{ inputs.pmmp-source-dir }}
-    - name: Display structure of downloaded files
-      shell: bash
-      run: cd pocketmine && ls -R
-    - name: Run PHPStan analysis
+    - name: Run PHPStan Analysis
       uses: ./run-phpstan
       with:
         executable: "./bin/phpstan/phpstan.phar"

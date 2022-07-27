@@ -1,69 +1,64 @@
 # Action nxtlvlsoftware/run-phpstan
 
-GitHub action for running PHPStan analysis against [PocketMine-MP](https://github/pmmp/PocketMine-MP) plugins and libraries in actions workflows.
+GitHub action for running PHPStan analysis against [PocketMine-MP](https://github/pmmp/PocketMine-MP) plugins and
+libraries in actions workflows.
 
-| Action Input    | Required | Default                                | Description                                                                                                                                                                                          |
-| ------------    | -------- |----------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| php-version     | true     | 8.0.16                                 | Specifies the version of php to use.                                                                                                                                                                 |
-| phpstan-version | true     | 1.4.10                                 | Specifies the version of phpstan to use.                                                                                                                                                             |
-| memory-limit    | true     | 1G                                     | Specifies the memory limit in the same format php.ini accepts.                                                                                                                                       |
-| analyse         | false    | undefined                              | A space seperated list of paths to analyse.                                                                                                                                                          |
-| level           | false    | 9                                      | Specifies the rule level to run (1-9). https://phpstan.org/user-guide/rule-levels                                                                                                                    |
-| config          | false    | ./pocketmine/phpstan/phpstan.neon.dist | Path to PHPStan configuration file. Relative paths are resolved based on the current working directory.                                                                                              |
-| debug           | false    | false                                  | Instead of the progress bar, it outputs lines with each analysed file before its analysis.                                                                                                           |
-| quiet           | false    | false                                  | Silences all the output. Useful if you’re interested only in the exit code.                                                                                                                          |
-| autoload-file   | false    |                                        | If your application uses a custom autoloader, you should set it up and register in a PHP file that is passed to this CLI option. Relative paths are resolved based on the current working directory. |
-| error-format    | false    | github                                 | Specifies a custom error formatter. https://phpstan.org/user-guide/output-format                                                                                                                     |
-| ansi            | false    | true                                   | Overrides the autodetection of whether colors should be used in the output and how nice the progress bar should be.                                                                                  |
-| xdebug          | false    | false                                  | PHPStan turns off XDebug if it’s enabled to achieve better performance.                                                                                                                              |
-
+| Action Input    | Required | Default                                | Description                                                                                                                                                                                              |
+|-----------------|----------|----------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| php-version     | false    | 8.0.16                                 | Specifies the version of php to use. We try to keep the default up-to-date with PocketMine. Pull Requests welcome.                                                                                       |
+| phpstan-version | false    | 1.4.10                                 | Specifies the version of phpstan to use. We try to keep the default up-to-date with PocketMine. Pull Requests welcome.                                                                                   |
+| pmmp-version    | false    | latest                                 | Specifies the version of pmmp to use. Will use the latest available release by default. You should keep this locked to the API version in your plugin.yml as any non-stable release could be downloaded. |
+| pmmp-source-dir | false    | ./pocketmine                           | Specifies the directory to install PocketMine sources and default phpstan.neon configs to.                                                                                                               |
+| memory-limit    | false    | 1G                                     | Specifies the memory limit in the same format php.ini accepts.                                                                                                                                           |
+| analyse         | false    | undefined                              | A space seperated list of paths to analyse. Providing paths here will override any paths specified in phpstan.neon files. (https://phpstan.org/config-reference#analysed-files)                          |
+| level           | false    | 9                                      | Specifies the rule level to run (1-9). https://phpstan.org/user-guide/rule-levels                                                                                                                        |
+| config          | false    | ./pocketmine/phpstan/phpstan.neon.dist | Path to a phpstan.neon configuration file.                                                                                                                                                               |
+| debug           | false    | false                                  | Instead of the progress bar, it outputs lines with each analysed file before its analysis.                                                                                                               |
+| quiet           | false    | false                                  | Silences all the output. Useful if you’re interested only in the exit code.                                                                                                                              |
+| autoload-file   | false    |                                        | If your application uses a custom autoloader, you should set it up and register in a PHP file that is passed to this CLI option. Relative paths are resolved based on the current working directory.     |
+| error-format    | false    | github                                 | Specifies a custom error formatter. https://phpstan.org/user-guide/output-format                                                                                                                         |
+| ansi            | false    | true                                   | Overrides the auto-detection of whether colors should be used in the output and how nice the progress bar should be.                                                                                     |
+| xdebug          | false    | false                                  | PHPStan turns off XDebug if it’s enabled to achieve better performance.                                                                                                                                  |
 
 ## How to use
-Simple analysis if php and phpstan are already configured properly in the actions environment:
+
+Simple analysis of PocketMine plugins and libraries on GitHub Actions:
 
 ```yml
-name: My PHP Workflow
-on: [push]
+name: My PMMP Plugin Workflow
+on: [ push ]
 jobs:
-  setup-php:
-    name: Run PHPStan
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [windows-latest, macos-latest, ubuntu-latest]
-        php: [8.0.11]
+  test-code:
+    name: Run Plugin Tests
+    runs-on: ubuntu-latest
     steps:
-      - uses: nxtlvlsoftware/run-phpstan@v1
-        with:
-          analyse: src
-          config: tests/phpstan/action.phpstan.neon
-          level: 9
-      - run: |
-        echo "phpstan exited with code ${{ steps.run-phpstan.outputs.exit-code }}"
+      - name: Checkout source code
+        uses: actions/checkout@v2
+      - name: Run PHPStan
+        uses: nxtlvlsoftware/run-phpstan-pmmp@v1
 ```
 
-Or provide the path to an existing PHPStan installation/binary:
+This example will run the analysis with the default settings against any code in the `src` directory. We aim to keep the
+default phpstan version in-sync with whatever PocketMine is currently using, pull requests are welcome to maintain this.
+
+Or to lock the versions of any required tools/executables to known versions:
+
 ```yml
-name: My Complex PHP Workflow
-on: [push]
+name: My PMMP Plugin Workflow
+on: [ push ]
 jobs:
-  setup-php:
-    name: Run PHPStan
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [windows-latest, macos-latest, ubuntu-latest]
-        php: [8.0.11]
+  test-code:
+    name: Run Plugin Tests
+    runs-on: ubuntu-latest
     steps:
-      - uses: nxtlvlsoftware/run-phpstan@v1
+      - name: Checkout source code
+        uses: actions/checkout@v2
+      - uses: nxtlvlsoftware/run-phpstan-pmmp@v1
         with:
           analyse: src
           config: tests/phpstan/action.phpstan.neon
           level: 9
-          php: /path/to/php/bin
-          phpstan: /path/to/phpstan.phar
-          quiet: true
-          debug: true
-      - run: |
-        echo "phpstan exited with code ${{ steps.run-phpstan.outputs.exit-code }}"
+          php-version: 8.0.18
+          phpstan-version: 1.8.2
+          pmmp-version: 4.6.1
 ```
