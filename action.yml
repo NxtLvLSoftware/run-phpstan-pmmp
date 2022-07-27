@@ -45,12 +45,12 @@ inputs:
     description: |
       Instead of the progress bar, it outputs lines with each analysed file before its analysis.
     required: false
-    default: "false"
+    default: ""
   quiet:
     description: |
       Silences all the output. Useful if you’re interested only in the exit code.
     required: false
-    default: "false"
+    default: ""
   autoload-file:
     description: |
       If your application uses a custom autoloader, you should set it up and register in a PHP file that is
@@ -66,7 +66,7 @@ inputs:
     description: |
       Overrides the auto-detection of whether colors should be used in the output and how nice the progress bar should be.
     required: false
-    default: "true"
+    default: ""
 
 name: Setup PHPStan
 description: GitHub action for setting up phpstan in an actions environment.
