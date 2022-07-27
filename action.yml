@@ -94,18 +94,6 @@ runs:
       with:
         pmmp-version: ${{ inputs.pmmp-version }}
         install-path: ${{ inputs.pmmp-source-dir }}
-    - name: Display structure of downloaded files
-      shell: bash
-      run: cd pocketmine && ls -R
-    - name: Read file [DEBUG]
-      id: vars
-      uses: juliangruber/read-file-action@v1
-      with:
-        path: ./pocketmine/phpstan/rules/DisallowEnumComparisonRule.php
-    - name: Output file [DEBUG]
-      shell: bash
-      run: |
-        echo "$steps.vars.outputs.content"
     - name: Run PHPStan analysis
       uses: ./run-phpstan
       with:
