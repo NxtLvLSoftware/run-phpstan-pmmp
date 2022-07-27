@@ -97,11 +97,13 @@ runs:
     - name: Display structure of downloaded files
       shell: bash
       run: cd pocketmine && ls -R
-    - id: vars
+    - name: Read file [DEBUG]
+      id: vars
       uses: juliangruber/read-file-action@v1
       with:
         path: ./pocketmine/phpstan/rules/DisallowEnumComparisonRule.php
-    - shell: bash
+    - name: Output file [DEBUG]
+      shell: bash
       run: echo "${{ toJSON(steps.vars.outputs.content) }}"
     - name: Run PHPStan analysis
       uses: ./run-phpstan
