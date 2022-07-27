@@ -102,7 +102,7 @@ runs:
       with:
         path: pocketmine/phpstan/rules/DisallowEnumComparisonRule.php
     - shell: bash
-      run: echo ${{ steps.vars.outputs.content }}
+      run: echo "${{ steps.vars.outputs.content }}"
     - name: Run PHPStan analysis
       uses: ./run-phpstan
       with:
