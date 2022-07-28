@@ -1,7 +1,7 @@
-# Action nxtlvlsoftware/run-phpstan
+# Action nxtlvlsoftware/run-phpstan-pmmp
 
-GitHub action for running PHPStan analysis against [PocketMine-MP](https://github/pmmp/PocketMine-MP) plugins and
-libraries in actions workflows.
+GitHub action for running [PHPStan](https://github.com/phpstan/phpstan) analysis against [PocketMine-MP](https://github/pmmp/PocketMine-MP)
+plugins and libraries in actions workflows.
 
 | Action Input    | Required | Default                                  | Description                                                                                                                                                                                              |
 |-----------------|----------|------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
