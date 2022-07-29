@@ -3,12 +3,12 @@ inputs:
     description: |
       Specifies the version of php to use.
     required: false
-    default: 8.0.16
+    default: 8.0.18
   phpstan-version:
     description: |
       Specifies the version of phpstan to use.
     required: false
-    default: latest
+    default: 1.8.2
   pmmp-version:
     description: |
       Specifies the version of pocketmine source to analyse against.
@@ -90,17 +90,17 @@ runs:
     - name: Install PHPStan
       env:
         GITHUB_TOKEN: ${{ env.GITHUB_TOKEN }}
-      uses: ./setup-phpstan
+      uses: nxtlvlsoftware/setup-phpstan@v1
       with:
         version: ${{ inputs.phpstan-version }}
         install-path: "./bin/phpstan"
     - name: Setup PocketMine Sources
-      uses: ./setup-pmmp-phpstan-env
+      uses: nxtlvlsoftware/setup-pmmp-phpstan-env@v1
       with:
         pmmp-version: ${{ inputs.pmmp-version }}
         install-path: ${{ inputs.pmmp-source-dir }}
     - name: Run PHPStan Analysis
-      uses: ./run-phpstan
+      uses: nxtlvlsoftware/run-phpstan@v1
       with:
         executable: "./bin/phpstan/phpstan.phar"
         php: "./bin/bin/php"
