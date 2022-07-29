@@ -3,12 +3,12 @@ inputs:
     description: |
       Specifies the version of php to use.
     required: false
-    default: 8.0.16
+    default: 8.0.18
   phpstan-version:
     description: |
       Specifies the version of phpstan to use.
     required: false
-    default: latest
+    default: 1.8.2
   pmmp-version:
     description: |
       Specifies the version of pocketmine source to analyse against.
